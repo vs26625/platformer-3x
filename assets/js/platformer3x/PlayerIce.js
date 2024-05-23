@@ -77,14 +77,16 @@ export class PlayerIce extends PlayerBase {
         switch (this.state.collision) {
             case "finishline":
                 // 1. Caught in finishline
-                if (this.collisionData.touchPoints.this.top && this.collisionData.touchPoints.other.bottom) {
+                if (this.collisionData.touchPoints.this.onTopofOther  || this.state.isFinishing ) {
                     // Position player in the center of the finishline 
                     this.x = this.collisionData.newX;
+                    this.state.movement = { up: false, down: false, left: false, right: false, falling: false};
+                    this.state.isFinishing = true;
+                    this.gravityEnabled = true;
                     // Using natural gravity wait for player to reach floor
                     if (Math.abs(this.y - this.bottom) <= GameEnv.gravity) {
                         // Force end of level condition
-                        //this.x = GameEnv.innerWidth + 1;
-                        GameControl.transitionToLevel(GameEnv.levels[8])
+                        this.x = GameEnv.innerWidth + 1;
                     }
                 // 2. Collision between player right and finishline   
                 } else if (this.collisionData.touchPoints.this.right) {
