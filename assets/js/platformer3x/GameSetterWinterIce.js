@@ -4,9 +4,13 @@ import GameSet from './GameSet.js';
 import BackgroundParallax from './BackgroundParallax.js';
 import BackgroundTransitions from './BackgroundTransitions.js';
 import Platform from './Platform.js';
+import BlockPlatform from './BlockPlatform.js';
+import Coin from './Coin.js';
 import FinishLine from './FinishLine.js';
-import NarwhalBoss from './NarwhalBoss.js';
+import Jellyfish from './FlyingJellyfish.js';
+import Penguin from './EnemyPenguin.js';
 import PlayerIce from './PlayerIce.js';
+
 
 // Define the GameSetup object literal
 const assets = {  
@@ -111,56 +115,52 @@ const assets = {
     },
     }
   };
-    
-  const iceminiObjects = [
+
+  // Hills Game Level defintion...
+  const objects = [
     // GameObject(s), the order is important to z-index...
-    { name: 'icewater', id: 'background', class: BackgroundParallax, data: this.assets.backgrounds.icewater },
-    { name: 'narwhal', id: 'background', class: BackgroundParallax, data: this.assets.backgrounds.narwhal },
-    { name: 'narwhalfloor', id: 'platform', class: Platform, data: this.assets.platforms.narwhalfloor },
-    { name: 'sandstone', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.snowywood, xPercentage: 0.2, yPercentage: 0.82 },
-    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.snowywood, xPercentage: 0.2368, yPercentage: 0.82 },
-    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.snowywood, xPercentage: 0.2736, yPercentage: 0.82 },
-    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.snowywood, xPercentage: 0.3104, yPercentage: 0.82 },
-    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.snowywood, xPercentage: 0.3472, yPercentage: 0.74 },
-    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.snowywood, xPercentage: 0.59, yPercentage: 0.35 },
-    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.snowywood, xPercentage: 0.6268, yPercentage: 0.35 },
-    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.snowywood, xPercentage: 0.3, yPercentage: 0.35 },
-    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.snowywood, xPercentage: 0.332, yPercentage: 0.35 },
-    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.snowywood, xPercentage: 0.3736, yPercentage: 0.6 },
-    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.snowywood, xPercentage: 0.4104, yPercentage: 0.6 },
-    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.snowywood, xPercentage: 0.4472, yPercentage: 0.6 },
-    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.snowywood, xPercentage: 0.484, yPercentage: 0.6 },
-    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.snowywood, xPercentage: 0.5208, yPercentage: 0.6 },
-    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.snowywood, xPercentage: 0.5576, yPercentage: 0.6 },
-    { name: 'Snowflake', id: 'coin', class: Coin, data: this.assets.obstacles.snowflake, xPercentage: 0.325, yPercentage: 0.25 },
-    { name: 'Snowflake', id: 'coin', class: Coin, data: this.assets.obstacles.snowflake, xPercentage: 0.29, yPercentage: 0.25 },
-    { name: 'Snowflake', id: 'coin', class: Coin, data: this.assets.obstacles.snowflake, xPercentage: 0.40, yPercentage: 0.5 },
-    { name: 'Snowflake', id: 'coin', class: Coin, data: this.assets.obstacles.snowflake, xPercentage: 0.42, yPercentage: 0.5 },
-    { name: 'Snowflake', id: 'coin', class: Coin, data: this.assets.obstacles.snowflake, xPercentage: 0.44, yPercentage: 0.5 },
-    { name: 'Snowflake', id: 'coin', class: Coin, data: this.assets.obstacles.snowflake, xPercentage: 0.46, yPercentage: 0.5 },
-    { name: 'Snowflake', id: 'coin', class: Coin, data: this.assets.obstacles.snowflake, xPercentage: 0.48, yPercentage: 0.5 },
-    { name: 'Snowflake', id: 'coin', class: Coin, data: this.assets.obstacles.snowflake, xPercentage: 0.5, yPercentage: 0.5 },
-    { name: 'Snowflake', id: 'coin', class: Coin, data: this.assets.obstacles.snowflake, xPercentage: 0.58, yPercentage: 0.25 },
-    { name: 'Snowflake', id: 'coin', class: Coin, data: this.assets.obstacles.snowflake, xPercentage: 0.62, yPercentage: 0.25 },
-    { name: 'jellyfish', id: 'jellyfish', class: Jellyfish, data: this.assets.enemies.Jellyfish, xPercentage: 0.2, minPosition: 0.05 },
-    { name: 'jellyfish', id: 'jellyfish', class: Jellyfish, data: this.assets.enemies.Jellyfish, xPercentage: 0.8, minPosition: 0.05 },
-    { name: 'jellyfish', id: 'jellyfish', class: Jellyfish, data: this.assets.enemies.Jellyfish, xPercentage: 0.5, minPosition: 0.05 },
-    { name: 'jellyfish', id: 'jellyfish', class: Jellyfish, data: this.assets.enemies.Jellyfish, xPercentage: 0.7, minPosition: 0.05 },
-    { name: 'jellyfish', id: 'jellyfish', class: Jellyfish, data: this.assets.enemies.Jellyfish, xPercentage: 0.3, minPosition: 0.05 },
-    { name: 'penguin', id: 'penguin', class: Penguin, data: this.assets.enemies.Penguin, xPercentage: 0.2, minPosition: 0.1, difficulties: ["normal", "hard", "impossible"] },
-    { name: 'penguin', id: 'penguin', class: Penguin, data: this.assets.enemies.Penguin, xPercentage: 0.35, minPosition: 0.1, difficulties: ["normal", "hard", "impossible"] },
-    { name: 'penguin', id: 'penguin', class: Penguin, data: this.assets.enemies.Penguin, xPercentage: 0.5, minPosition: 0.1, difficulties: ["normal", "hard", "impossible"] },
-    { name: 'narwhal boss', id: 'narwhalboss', class: NarwhalBoss, data: this.assets.enemies.narwhalboss, xPercentage: 0.7, yPercentage: -3 },
-    { name: 'mario', id: 'player', class: PlayerIce, data: this.assets.players.whitemario },
-    { name: 'tubeD', id: 'finishline', class: FinishLine, data: this.assets.obstacles.tubeD, xPercentage: 0, yPercentage: 0.052 },
-    { name: 'iceberg', id: 'finishline', class: FinishLine, data: this.assets.obstacles.iceberg, xPercentage: 0.85, yPercentage: 0.603 },
-    { name: 'iceminiEnd', id: 'background', class: BackgroundTransitions, data: this.assets.transitions.iceminiEnd },
+    { name: 'icewater', id: 'background', class: BackgroundParallax, data: assets.backgrounds.icewater },
+    { name: 'narwhal', id: 'background', class: BackgroundParallax, data: assets.backgrounds.narwhal },
+    { name: 'narwhalfloor', id: 'platform', class: Platform, data: assets.platforms.narwhalfloor },
+    { name: 'sandstone', id: 'jumpPlatform', class: BlockPlatform, data: assets.platforms.snowywood, xPercentage: 0.2, yPercentage: 0.82 },
+    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: assets.platforms.snowywood, xPercentage: 0.2368, yPercentage: 0.82 },
+    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: assets.platforms.snowywood, xPercentage: 0.2736, yPercentage: 0.82 },
+    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: assets.platforms.snowywood, xPercentage: 0.3104, yPercentage: 0.82 },
+    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: assets.platforms.snowywood, xPercentage: 0.3472, yPercentage: 0.74 },
+    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: assets.platforms.snowywood, xPercentage: 0.59, yPercentage: 0.35 },
+    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: assets.platforms.snowywood, xPercentage: 0.6268, yPercentage: 0.35 },
+    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: assets.platforms.snowywood, xPercentage: 0.3, yPercentage: 0.35 },
+    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: assets.platforms.snowywood, xPercentage: 0.332, yPercentage: 0.35 },
+    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: assets.platforms.snowywood, xPercentage: 0.3736, yPercentage: 0.6 },
+    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: assets.platforms.snowywood, xPercentage: 0.4104, yPercentage: 0.6 },
+    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: assets.platforms.snowywood, xPercentage: 0.4472, yPercentage: 0.6 },
+    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: assets.platforms.snowywood, xPercentage: 0.484, yPercentage: 0.6 },
+    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: assets.platforms.snowywood, xPercentage: 0.5208, yPercentage: 0.6 },
+    { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: assets.platforms.snowywood, xPercentage: 0.5576, yPercentage: 0.6 },
+    { name: 'Snowflake', id: 'coin', class: Coin, data: assets.obstacles.snowflake, xPercentage: 0.325, yPercentage: 0.25 },
+    { name: 'Snowflake', id: 'coin', class: Coin, data: assets.obstacles.snowflake, xPercentage: 0.29, yPercentage: 0.25 },
+    { name: 'Snowflake', id: 'coin', class: Coin, data: assets.obstacles.snowflake, xPercentage: 0.40, yPercentage: 0.5 },
+    { name: 'Snowflake', id: 'coin', class: Coin, data: assets.obstacles.snowflake, xPercentage: 0.42, yPercentage: 0.5 },
+    { name: 'Snowflake', id: 'coin', class: Coin, data: assets.obstacles.snowflake, xPercentage: 0.44, yPercentage: 0.5 },
+    { name: 'Snowflake', id: 'coin', class: Coin, data: assets.obstacles.snowflake, xPercentage: 0.46, yPercentage: 0.5 },
+    { name: 'Snowflake', id: 'coin', class: Coin, data: assets.obstacles.snowflake, xPercentage: 0.48, yPercentage: 0.5 },
+    { name: 'Snowflake', id: 'coin', class: Coin, data: assets.obstacles.snowflake, xPercentage: 0.5, yPercentage: 0.5 },
+    { name: 'Snowflake', id: 'coin', class: Coin, data: assets.obstacles.snowflake, xPercentage: 0.58, yPercentage: 0.25 },
+    { name: 'Snowflake', id: 'coin', class: Coin, data: assets.obstacles.snowflake, xPercentage: 0.62, yPercentage: 0.25 },
+    { name: 'jellyfish', id: 'jellyfish', class: Jellyfish, data: assets.enemies.Jellyfish, xPercentage: 0.2, minPosition: 0.05 },
+    { name: 'jellyfish', id: 'jellyfish', class: Jellyfish, data: assets.enemies.Jellyfish, xPercentage: 0.8, minPosition: 0.05 },
+    { name: 'penguin', id: 'penguin', class: Penguin, data: assets.enemies.Penguin, xPercentage: 0.2, minPosition: 0.1},
+    { name: 'penguin', id: 'penguin', class: Penguin, data: assets.enemies.Penguin, xPercentage: 0.35, minPosition: 0.1},
+    { name: 'penguin', id: 'penguin', class: Penguin, data: assets.enemies.Penguin, xPercentage: 0.5, minPosition: 0.1},
+    { name: 'mario', id: 'player', class: PlayerIce, data: assets.players.whitemario },
+    { name: 'tubeD', id: 'finishline', class: FinishLine, data: assets.obstacles.tubeD, xPercentage: 0, yPercentage: 0.052 },
+    { name: 'iceberg', id: 'finishline', class: FinishLine, data: assets.obstacles.iceberg, xPercentage: 0.85, yPercentage: 0.603 },
+    { name: 'winterEnd', id: 'background', class: BackgroundTransitions, data: assets.transitions.winterEnd },
   ];
-  // IceMiniGame Game Level added to the GameEnv ...
-  new GameLevel({ tag: "icemini", callback: this.playerOffScreenCallBack, objects: iceminiObjects });
-  const GameSetterNarwhalBoss = {
+
+  const GameSetterWinterIce = {
     assets: assets,
     objects: objects
   };
 
-export default GameSetterNarwhalBoss;
+export default GameSetterWinterIce;
