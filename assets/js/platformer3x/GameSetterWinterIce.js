@@ -499,6 +499,8 @@ const assets = {
     { name: 'Snowflake', id: 'coin', class: Coin, data: assets.obstacles.snowflake, xPercentage: 0.62, yPercentage: 0.25 },
     { name: 'jellyfish', id: 'jellyfish', class: Jellyfish, data: assets.enemies.Jellyfish, xPercentage: 0.2, minPosition: 0.05 },
     { name: 'jellyfish', id: 'jellyfish', class: Jellyfish, data: assets.enemies.Jellyfish, xPercentage: 0.8, minPosition: 0.05 },
+    { name: 'jellyfish', id: 'jellyfish', class: Jellyfish, data: assets.enemies.Jellyfish, xPercentage: 0.4, minPosition: 0.05 },
+    { name: 'jellyfish', id: 'jellyfish', class: Jellyfish, data: assets.enemies.Jellyfish, xPercentage: 0.7, minPosition: 0.05 },
     { name: 'penguin', id: 'penguin', class: Penguin, data: assets.enemies.Penguin, xPercentage: 0.2, minPosition: 0.1, difficulties: ["normal", "hard", "impossible"] },
     { name: 'penguin', id: 'penguin', class: Penguin, data: assets.enemies.Penguin, xPercentage: 0.35, minPosition: 0.1, difficulties: ["normal", "hard", "impossible"] },
     { name: 'penguin', id: 'penguin', class: Penguin, data: assets.enemies.Penguin, xPercentage: 0.5, minPosition: 0.1, difficulties: ["normal", "hard", "impossible"] },
