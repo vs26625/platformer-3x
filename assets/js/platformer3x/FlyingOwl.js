@@ -1,7 +1,6 @@
-import Character from './Character.js';
-import FlyingGoomba from './FlyingGoomba.js';
-import GameEnv from './GameEnv.js';
+import FlyingEnemyOneD from './FlyingEnemyOneD.js';
 
+<<<<<<< HEAD
 export class Owl extends FlyingGoomba {
     // Constructor sets up Character object 
     constructor(canvas, image, data, xPercentage, yPercentage, name, minPosition, minYPercentage, maxYPercentage) {
@@ -92,9 +91,21 @@ export class Owl extends FlyingGoomba {
 
         // Move the enemy
         this.x -= this.speed;
+=======
+export class Owl extends FlyingEnemyOneD {
+  
+    // constructors sets up Character object 
+    constructor(canvas, image, data, xPercentage, yPercentage, name, minPosition){
+        super(canvas, image, data, xPercentage, yPercentage, name, minPosition);
+        this.enemySpeed()
     }
 
-    // Player action on collisions
+
+    update() {
+        super.update();
+>>>>>>> 2b8cad6be62d488c6aeec1c1e437e4c7eec725be
+    }
+
 }
 
 export default Owl;

@@ -1,7 +1,6 @@
-import Character from './Character.js';
-import FlyingGoomba from './FlyingGoomba.js';
-import GameEnv from './GameEnv.js';
+import FlyingEnemy from './FlyingEnemy.js';
 
+<<<<<<< HEAD
 export class Jellyfish extends FlyingGoomba {
     // Constructor sets up Character object 
     constructor(canvas, image, data, xPercentage, yPercentage, name, minPosition, minYPercentage, maxYPercentage) {
@@ -92,9 +91,19 @@ export class Jellyfish extends FlyingGoomba {
 
         // Move the enemy
         this.x -= this.speed;
+=======
+export class Jellyfish extends FlyingEnemy {
+  
+    // constructors sets up Character object 
+    constructor(canvas, image, data, xPercentage, yPercentage, name, minPosition){
+        super(canvas, image, data, xPercentage, yPercentage, name, minPosition);
+        this.enemySpeed();
     }
+    update() {
+        super.update();
 
-    // Player action on collisions
+>>>>>>> 2b8cad6be62d488c6aeec1c1e437e4c7eec725be
+    }
 }
 
 export default Jellyfish;
