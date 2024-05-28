@@ -506,7 +506,7 @@ const assets = {
     { name: 'penguin', id: 'penguin', class: Penguin, data: assets.enemies.Penguin, xPercentage: 0.5, minPosition: 0.1, difficulties: ["normal", "hard", "impossible"] },
     { name: 'narwhalboss', id: 'narwhalboss', class: NarwhalBoss, data: assets.enemies.narwhalboss, xPercentage: 0.5, minPosition: 0.3 },
     { name: 'mario', id: 'player', class: PlayerIce, data: assets.players.whitemario },
-    { name: 'tubeD', id: 'finishline', class: FinishLine, data: assets.obstacles.tubeD, xPercentage: 0, yPercentage: 0.0685 },
+    { name: 'tubeD', id: 'minifinishline', class: FinishLine, data: assets.obstacles.tubeD, xPercentage: 0, yPercentage: 0.0685 },
     { name: 'iceberg', id: 'finishline', class: FinishLine, data: assets.obstacles.iceberg, xPercentage: 0.85, yPercentage: 0.82 },
     { name: 'winterEnd', id: 'background', class: BackgroundTransitions, data: assets.transitions.winterEnd },
   ];
