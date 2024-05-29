@@ -2,42 +2,19 @@ import GameEnv from './GameEnv.js';
 import PlayerBase from './PlayerBase.js';
 import GameControl from './GameControl.js';
 
-/**
- * @class PlayerHills class
- * @description PlayerHills.js key objective is to eent the user-controlled character in the game.   
- * 
- * The Player class extends the Character class, which in turn extends the GameObject class.
- * Animations and events are activated by key presses, collisions, and gravity.
- * WASD keys are used by user to control The Player object.  
- * 
- * @extends PlayerBase 
- */
 export class PlayerIce extends PlayerBase {
-
-    /** GameObject instantiation: constructor for PlayerHills object
-     * @extends Character 
-     * @param {HTMLCanvasElement} canvas - The canvas element to draw the player on.
-     * @param {HTMLImageElement} image - The image to draw the player with.
-     * @param {Object} data - The data object containing the player's properties.
-     */
     constructor(canvas, image, data) {
         super(canvas, image, data);
         const scaledHeight = GameEnv.innerHeight * (100 / 832);
         const finishlineX = .01 * GameEnv.innerWidth;
         this.setX(finishlineX);
         this.hillsStart = true;
-
-
-        // Goomba variables, deprecate?
         this.timer = false;
-        GameEnv.invincible = false; // Player is not invincible 
+        GameEnv.invincible = false;
+        this.hp = 100; // Add health points for the player
     }
 
-    /**
-     * @override
-     * gameLoop helper: Update Player jump height, replaces PlayerBase updateJump using settings from GameEnv
-     */
-    updateJump() {  
+    updateJump() {
         let jumpHeightFactor;
         if (GameEnv.difficulty === "easy") {
             jumpHeightFactor = 0.50;
@@ -47,69 +24,50 @@ export class PlayerIce extends PlayerBase {
             jumpHeightFactor = 0.30;
         }
         this.setY(this.y - (this.bottom * jumpHeightFactor));
-    }    
-    update(){
-            super.update();
-        if (this.hillsStart) {
-                this.setY(0);
-                this.hillsStart = false;
-            }
     }
 
-    /**
-     * @override
-     * gameLoop: Watch for Player collision events 
-     */ 
+    update() {
+        super.update();
+        if (this.hillsStart) {
+            this.setY(0);
+            this.hillsStart = false;
+        }
+    }
+
     handleCollisionStart() {
-        super.handleCollisionStart(); // calls the super class method
-        // adds additional collision events
+        super.handleCollisionStart();
         this.handleCollisionEvent("finishline");
         this.handleCollisionEvent("penguin");
     }
-   
-    /**
-     * @override
-     * gameloop: Handles additional Player reaction / state updates to the collision for game level 
-     */
+
     handlePlayerReaction() {
-        super.handlePlayerReaction(); // calls the super class method
-        // handles additional player reactions
+        super.handlePlayerReaction();
         switch (this.state.collision) {
             case "finishline":
-                // 1. Caught in finishline
                 if (this.collisionData.touchPoints.this.top && this.collisionData.touchPoints.other.bottom) {
-                    // Position player in the center of the finishline 
                     this.x = this.collisionData.newX;
-                    // Using natural gravity wait for player to reach floor
                     if (Math.abs(this.y - this.bottom) <= GameEnv.gravity) {
-                        // Force end of level condition
-                        //this.x = GameEnv.innerWidth + 1;
-                        const index = GameEnv.levels.findIndex(level => level.tag === "Winter")
+                        const index = GameEnv.levels.findIndex(level => level.tag === "Winter");
                         GameControl.transitionToLevel(GameEnv.levels[index]);
                     }
-                // 2. Collision between player right and finishline   
                 } else if (this.collisionData.touchPoints.this.right) {
                     this.state.movement.right = false;
                     this.state.movement.left = true;
-                // 3. Collision between player left and finishline
                 } else if (this.collisionData.touchPoints.this.left) {
                     this.state.movement.left = false;
                     this.state.movement.right = true;
                 }
                 break;
-            case "penguin": // Note: Goomba.js and Player.js could be refactored
-                // 1. Player jumps on goomba, interaction with Goomba.js
+            case "penguin":
                 if (this.collisionData.touchPoints.this.top && this.collisionData.touchPoints.other.bottom && this.state.isDying == false) {
-                    // GoombaBounce deals with player.js and goomba.js
                     if (GameEnv.goombaBounce === true) {
                         GameEnv.goombaBounce = false;
                         this.y = this.y - 100;
                     }
                     if (GameEnv.goombaBounce1 === true) {
-                        GameEnv.goombaBounce1 = false; 
-                        this.y = this.y - 250
+                        GameEnv.goombaBounce1 = false;
+                        this.y = this.y - 250;
                     }
-                // 2. Player touches goomba sides of goomba 
                 } else if (this.collisionData.touchPoints.this.right || this.collisionData.touchPoints.this.left) {
                     if (GameEnv.difficulty === "normal" || GameEnv.difficulty === "hard") {
                         if (this.state.isDying == false) {
@@ -117,22 +75,32 @@ export class PlayerIce extends PlayerBase {
                             this.canvas.style.transition = "transform 0.5s";
                             this.canvas.style.transform = "rotate(-90deg) translate(-26px, 0%)";
                             GameEnv.playSound("PlayerDeath");
-                            setTimeout(async() => {
+                            setTimeout(async () => {
                                 await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                            }, 900); 
+                            }, 900);
                         }
                     } else if (GameEnv.difficulty === "easy" && this.collisionData.touchPoints.this.right) {
                         this.x -= 10;
                     } else if (GameEnv.difficulty === "easy" && this.collisionData.touchPoints.this.left) {
-                       this.x += 10;
+                        this.x += 10;
                     }
-                
                 }
                 break;
         }
-
     }
 
+    takeDamage(damage) {
+        this.hp -= damage;
+        if (this.hp <= 0) {
+            this.state.isDying = true;
+            this.canvas.style.transition = "transform 0.5s";
+            this.canvas.style.transform = "rotate(-90deg) translate(-26px, 0%)";
+            GameEnv.playSound("PlayerDeath");
+            setTimeout(async () => {
+                await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
+            }, 900);
+        }
+    }
 }
 
 export default PlayerIce;
