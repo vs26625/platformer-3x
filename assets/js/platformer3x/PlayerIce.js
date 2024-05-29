@@ -109,16 +109,18 @@ export class PlayerIce extends PlayerBase {
 
     takeDamage(damage) {
         this.hp -= damage;
-        if (this.hp <= 0) {
+        if (this.hp <= 0 && !this.state.isDying) {
             this.state.isDying = true;
+            this.state.animation = "death";
             this.canvas.style.transition = "transform 0.5s";
             this.canvas.style.transform = "rotate(-90deg) translate(-26px, 0%)";
             GameEnv.playSound("PlayerDeath");
+    
             setTimeout(async () => {
                 await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-            }, 900);
+            }, 1); // Adjust the delay as needed for the death animation
         }
-    }
+    }        
 }
 
 export default PlayerIce;
