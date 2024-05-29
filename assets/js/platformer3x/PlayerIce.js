@@ -17,13 +17,26 @@ export class PlayerIce extends PlayerBase {
     updateJump() {
         let jumpHeightFactor;
         if (GameEnv.difficulty === "easy") {
-            jumpHeightFactor = 0.50;
+            jumpHeightFactor = 0.05;
         } else if (GameEnv.difficulty === "normal") {
-            jumpHeightFactor = 0.40;
+            jumpHeightFactor = 0.04;
         } else {
-            jumpHeightFactor = 0.30;
+            jumpHeightFactor = 0.03;
         }
+<<<<<<< HEAD
         this.setY(this.y - (this.bottom * jumpHeightFactor));
+=======
+        this.yv = -this.bottom * jumpHeightFactor;
+        this.y += this.yv;
+        this.setY(this.y);
+    }    
+    update(){
+            super.update();
+        if (this.hillsStart) {
+                this.setY(0);
+                this.hillsStart = false;
+            }
+>>>>>>> platformer3xNEW/main
     }
 
     update() {
@@ -62,11 +75,16 @@ export class PlayerIce extends PlayerBase {
                 if (this.collisionData.touchPoints.this.top && this.collisionData.touchPoints.other.bottom && this.state.isDying == false) {
                     if (GameEnv.goombaBounce === true) {
                         GameEnv.goombaBounce = false;
-                        this.y = this.y - 100;
+                        this.y = -10;
                     }
                     if (GameEnv.goombaBounce1 === true) {
+<<<<<<< HEAD
                         GameEnv.goombaBounce1 = false;
                         this.y = this.y - 250;
+=======
+                        GameEnv.goombaBounce1 = false; 
+                        this.y = -25;
+>>>>>>> platformer3xNEW/main
                     }
                 } else if (this.collisionData.touchPoints.this.right || this.collisionData.touchPoints.this.left) {
                     if (GameEnv.difficulty === "normal" || GameEnv.difficulty === "hard") {
