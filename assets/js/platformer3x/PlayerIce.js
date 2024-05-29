@@ -33,7 +33,10 @@ export class PlayerIce extends PlayerBase {
                 this.setY(0);
                 this.hillsStart = false;
             }
+<<<<<<< HEAD
             
+=======
+>>>>>>> d89a186da2cf1a788338a50c2f948f5de41c7c48
     }
 
     update() {
@@ -77,7 +80,11 @@ export class PlayerIce extends PlayerBase {
 
                     if (GameEnv.goombaBounce1 === true) {
                         GameEnv.goombaBounce1 = false; 
+<<<<<<< HEAD
                         this.yv = -25;
+=======
+                        this.y = -25;
+>>>>>>> d89a186da2cf1a788338a50c2f948f5de41c7c48
                     }
                 } else if (this.collisionData.touchPoints.this.right || this.collisionData.touchPoints.this.left) {
                     if (GameEnv.difficulty === "normal" || GameEnv.difficulty === "hard") {
@@ -102,16 +109,18 @@ export class PlayerIce extends PlayerBase {
 
     takeDamage(damage) {
         this.hp -= damage;
-        if (this.hp <= 0) {
+        if (this.hp <= 0 && !this.state.isDying) {
             this.state.isDying = true;
+            this.state.animation = "death";
             this.canvas.style.transition = "transform 0.5s";
             this.canvas.style.transform = "rotate(-90deg) translate(-26px, 0%)";
             GameEnv.playSound("PlayerDeath");
+    
             setTimeout(async () => {
                 await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-            }, 900);
+            }, 1); // Adjust the delay as needed for the death animation
         }
-    }
+    }        
 }
 
 export default PlayerIce;
