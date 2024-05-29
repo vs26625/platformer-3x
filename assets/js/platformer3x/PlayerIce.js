@@ -23,9 +23,6 @@ export class PlayerIce extends PlayerBase {
         } else {
             jumpHeightFactor = 0.03;
         }
-<<<<<<< HEAD
-        this.setY(this.y - (this.bottom * jumpHeightFactor));
-=======
         this.yv = -this.bottom * jumpHeightFactor;
         this.y += this.yv;
         this.setY(this.y);
@@ -36,7 +33,7 @@ export class PlayerIce extends PlayerBase {
                 this.setY(0);
                 this.hillsStart = false;
             }
->>>>>>> platformer3xNEW/main
+            
     }
 
     update() {
@@ -75,16 +72,12 @@ export class PlayerIce extends PlayerBase {
                 if (this.collisionData.touchPoints.this.top && this.collisionData.touchPoints.other.bottom && this.state.isDying == false) {
                     if (GameEnv.goombaBounce === true) {
                         GameEnv.goombaBounce = false;
-                        this.y = -10;
+                        this.yv = -10;
                     }
+
                     if (GameEnv.goombaBounce1 === true) {
-<<<<<<< HEAD
-                        GameEnv.goombaBounce1 = false;
-                        this.y = this.y - 250;
-=======
                         GameEnv.goombaBounce1 = false; 
-                        this.y = -25;
->>>>>>> platformer3xNEW/main
+                        this.yv = -25;
                     }
                 } else if (this.collisionData.touchPoints.this.right || this.collisionData.touchPoints.this.left) {
                     if (GameEnv.difficulty === "normal" || GameEnv.difficulty === "hard") {
