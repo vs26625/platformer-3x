@@ -67,7 +67,7 @@ export class NarwhalBoss extends Enemy {
 
     collisionAction() {
         const other = this.collisionData.touchPoints.other;
-    
+
         if (other.id === "tube") {
             if (this.state.direction === "left" && other.right) {
                 this.state.animation = "right";
@@ -77,7 +77,7 @@ export class NarwhalBoss extends Enemy {
                 this.state.direction = "left";
             }
         }
-    
+
         if (other.id === "PlayerIce" || other.id === "player") {
             if (other.right && !other.bottom) {
                 this.x -= 10;
@@ -108,7 +108,7 @@ export class NarwhalBoss extends Enemy {
                 this.takeDamage(1);
             }
         }
-    
+
         if (other.id === "jumpPlatform") {
             if (this.state.direction === "left" && other.right) {
                 this.state.animation = "right";
@@ -118,24 +118,13 @@ export class NarwhalBoss extends Enemy {
                 this.state.animation = "left";
             }
         }
-    }        
+    }
 
     attackPlayerIce() {
-        if (GameEnv.playerIce && !GameEnv.playerIce.state.isDying) {
-            GameEnv.playerIce.state.isDying = true;
-            GameEnv.playerIce.state.animation = "death";
-            GameEnv.playerIce.frameX = 0; // Reset animation frame to start death animation
-            GameEnv.playSound("PlayerDeath"); // Play death sound
-            // Add visual death effect
-            GameEnv.playerIce.canvas.style.transition = "transform 0.5s";
-            GameEnv.playerIce.canvas.style.transform = "rotate(-90deg) translate(-26px, 0%)";
-            // Transition to current level (restart)
-            setTimeout(async () => {
-                await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-            }, 900); // Adjust the delay as needed for the death animation
+        if (GameEnv.playerIce) {
+            GameEnv.playerIce.takeDamage(10);
         }
     }
-    
 
     takeDamage(damage) {
         this.currentHp -= damage;
@@ -150,5 +139,4 @@ export class NarwhalBoss extends Enemy {
         }
     }
 }
-
 export default NarwhalBoss;
